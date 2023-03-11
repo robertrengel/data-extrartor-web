@@ -1,3 +1,4 @@
+# sourcery skip: avoid-builtin-shadow
 import csv
 import requests
 from bs4 import BeautifulSoup
@@ -36,9 +37,9 @@ for name in names_authors:
 #print(key_author)
 #print(data_author['birth_date'])
 
+id = 1
 
 for author_key in authors_codes:
-
   response = requests.get(url_api_author + author_key + ".json")
   data = response.json()
   #birth_date = data['birth_date']
@@ -79,14 +80,15 @@ for author_key in authors_codes:
   if death_year != [] and birth_year!= []:
       age = int(death_year[-1]) - int(birth_year[-1])
       #print(age)
-  if age != 0 and first_name!= "" and last_name!= "":  
-    data_for_cvs = {'firts_name': first_name, 'last_name': last_name, 'age': age, 'nationality': fake.country()}
+  if age != 0 and first_name!= "" and last_name!= "":
+    data_for_cvs = {'id': id,'firts_name': first_name, 'last_name': last_name,'nationality': fake.country(), 'age': age}
     #print(data_for_cvs)
     data_cvs.append(data_for_cvs)
+    id += 1
 #print(data_cvs)
 
 with open('authors.csv', 'w', newline='',encoding='utf-8') as archivo:
-    campos = ['firts_name', 'last_name', 'age','nationality']
+    campos = ['id','firts_name', 'last_name','nationality', 'age']
     escritor = csv.DictWriter(archivo, fieldnames=campos)
     escritor.writeheader()
     for dato in data_cvs:
