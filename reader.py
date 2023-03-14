@@ -15,5 +15,4 @@ with open('readers.csv', 'w', newline='',encoding='utf-8') as archivo:
     for dato in data_cvs:
         escritor.writerow(dato) 
 print("archivo creado")  
-    
-# --> COPY author_author FROM 'D:\vscode project\python project\python data extrartor\authors.cvs' DELIMITER ',' CSV HEADER;
+
